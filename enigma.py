@@ -11,19 +11,12 @@ def rotors():
     wiresC = [{"A": "P"}, {"B": "E"}, {"C": "Z"}, {"D": "U"}, {"E": "O"}, {"F": "H"}, {"G": "X"}, {"H": "S"}, {"I": "C"}, {"J": "V"}, {"K": "F"}, {"L": "M"}, {"M": "T"}, {"N": "B"}, {"O":"G"}, {"P":"L"}, {"Q":"R"}, {"R":"I"}, {"S": "N"}, {"T": "Q"}, {"U":"J"}, {"V":"W"}, {"W": "A"}, {"X": "Y"}, {"Y": "D"}, {"Z": "K"}]
     reflector = {"A": "E", "B": "J", "C": "M", "D": "Z", "E": "A", "F": "L", "G": "Y", "H": "X", "I": "V", "J": "B", "K": "W", "L": "F", "M": "C", "N": "R", "O":"Q", "P":"U", "Q":"O", "R":"N", "S": "T", "T": "S", "U":"P", "V":"I", "W": "K", "X": "H", "Y": "G", "Z": "D"}
 
-    rotorI=   'EKMFLGDQVZNTOWYHXUSPAIBRCJ' #RotorC / 1
-    rotorII=  'AJDKSIRUXBLHWTMCQGZNPYFVOE' #RotorB / 2
-    rotorIII= 'BDFHJLCPRTXVZNYEIWGAKMUSQO' #RotorA / 3
-    alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    reflector = 'YRUHQSLDPXNGOKMIEBFZCWVJAT' #Reflector (B)
+    rotorI=     'EKMFLGDQVZNTOWYHXUSPAIBRCJ' #RotorC / 1
+    rotorII=    'AJDKSIRUXBLHWTMCQGZNPYFVOE' #RotorB / 2
+    rotorIII=   'BDFHJLCPRTXVZNYEIWGAKMUSQO' #RotorA / 3
+    alpha =     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 #
-    rotorA = RotorA(0)
-    rotorAOutput = rotorA.getOutput()
-    print(rotorAOutput)
-    rotorA.rotateRotor()
-    rotorAOutput = rotorA.getOutput()
-    print(rotorAOutput)
-#
-    print(wiresa["G"])
 
 class RotorA:
     def __init__(self, position):
@@ -32,12 +25,13 @@ class RotorA:
         self.alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
     def getOutput(self, position):
-        positionWithOffset = position
+        positionWithOffset = (position + self.position) % 26
         wireOutput = self.wires[positionWithOffset]
         rtv = self.alpha.find(wireOutput)
         return rtv
 
     def inverseGetOutput(self, input):
+        #inputWithOffset = (input - self.position) % 26
         letterOfInput = self.alpha[input]
         rtv = self.wires.find(letterOfInput)
         return rtv
@@ -58,12 +52,13 @@ class RotorB:
         self.alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
     def getOutput(self, position):
-        positionWithOffset = position
+        positionWithOffset = (position + self.position) % 26
         wireOutput = self.wires[positionWithOffset]
         rtv = self.alpha.find(wireOutput)
         return rtv
 
     def inverseGetOutput(self, input):
+        #inputWithOffset = (input - self.position) % 26
         letterOfInput = self.alpha[input]
         rtv = self.wires.find(letterOfInput)
         return rtv
@@ -84,12 +79,13 @@ class RotorC:
         self.alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
     def getOutput(self, position):
-        positionWithOffset = position
+        positionWithOffset = (position + self.position) % 26
         wireOutput = self.wires[positionWithOffset]
         rtv = self.alpha.find(wireOutput)
         return rtv
 
     def inverseGetOutput(self, input):
+        #inputWithOffset = (input - self.position) % 26
         letterOfInput = self.alpha[input]
         rtv = self.wires.find(letterOfInput)
         return rtv
@@ -150,7 +146,7 @@ def main():
     relf = Reflector()
     alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
      
-    inputString = 'JAKE'
+    inputString = 'VIWY'
     
     for letter in inputString:
 
